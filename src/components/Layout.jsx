@@ -4,19 +4,18 @@ import styled from 'styled-components';
 
 const LinkList = styled.ul`
   display: flex;
+  gap: 20px;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 20px 0;
 `;
 
 const LinkStyle = styled(NavLink)`
   color: rgb(115, 25, 45);
   font-size: 1.2rem;
-  margin-right: 20px;
   text-decoration: none;
-  display: flex;
-  gap: 20px;
   border-radius: 5px;
+  text-decoration: none;
 
   &:hover,
   &:focus {

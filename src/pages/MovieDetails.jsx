@@ -43,18 +43,14 @@ export default function MovieDetails() {
 
     return (
       <section>
-        <NavLink
-          to={refLocationLink.current}
-          style={{
-            display: 'block',
-            marginBottom: '10px',
-          }}
-        >
+        <NavLink to={refLocationLink.current}>
           <button
             style={{
               backgroundColor: 'blue',
               border: 'none',
               color: '#fff',
+              margin: '5px',
+              cursor: 'pointer',
             }}
           >
             Go back
