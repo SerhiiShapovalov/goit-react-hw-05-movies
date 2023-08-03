@@ -9,7 +9,7 @@ export default function Cast() {
   useEffect(() => {
     getMovieCredits(filmId)
       .then(resp => {
-        setCast(resp.cast);
+        setCast(resp); 
       })
       .catch(error => console.log(error));
   }, [filmId]);
