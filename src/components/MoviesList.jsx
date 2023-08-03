@@ -6,7 +6,12 @@ export default function MoviesList({ searchResult }) {
     <ul>
       {searchResult.map(({ id, title, name, poster_path }) => (
         <li key={id}>
-          <NavLink key={id} to={`/movies/${id}`} state={{ from: location }}>
+          <NavLink
+            key={id}
+            to={`/movies/${id}`}
+            state={{ from: location }}
+            style={{ textDecoration: 'none' }}
+          >
             <img
               src={
                 poster_path

@@ -10,11 +10,9 @@ export default function Home() {
     getTrendingMovies()
       .then(resp => {
         setStatus('RESOLVED');
-        // Проверяем, что resp.results является массивом, прежде чем использовать его
         if (Array.isArray(resp.results)) {
           setTrendingMovie([...resp.results]);
         } else {
-          // Обработка случая, когда resp.results не является массивом
           setTrendingMovie([]);
         }
       })
