@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import { getTrendingMovies } from 'services/ThemoviedbApi';
+import MoviesList from '../components/MoviesList';
 
 export default function Home() {
   const [status, setStatus] = useState('PENDING');
@@ -24,21 +25,11 @@ export default function Home() {
 
   if (status === 'PENDING') {
     return <p>Loading...</p>;
-  } else if (status === 'REJECTED') {
+  }
+  if (status === 'REJECTED') {
     return <p>Failed to fetch data</p>;
-  } else if (status === 'RESOLVED') {
-    return (
-      <ul>
-        {trendingMovie.map(obj => (
-          <NavLink
-            style={{ display: 'block', marginBottom: '10px' }}
-            to={`movies/${obj.id}`}
-            key={obj.id}
-          >
-            {obj.title || obj.name}
-          </NavLink>
-        ))}
-      </ul>
-    );
+  }
+  if (status === 'RESOLVED') {
+    return <MoviesList searchResult={trendingMovie} />;
   }
 }

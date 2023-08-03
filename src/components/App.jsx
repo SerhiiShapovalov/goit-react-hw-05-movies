@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { lazy } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,6 +26,7 @@ export default function App() {
               Reviews
             </Route>
           </Route>
+          <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
       <ToastContainer />
