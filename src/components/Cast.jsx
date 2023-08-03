@@ -1,27 +1,42 @@
-import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMovieCredits } from '../services/ThemoviedbApi';
+import { useEffect, useState } from 'react';
+import { getMovieCredits } from 'services/ThemoviedbApi';
 
-function Cast() {
-  const { movieId } = useParams();
+export default function Cast() {
   const [cast, setCast] = useState([]);
+  const { filmId } = useParams();
 
   useEffect(() => {
-    getMovieCredits(movieId)
-      .then(credits => setCast(credits))
-      .catch(error => console.error('Error fetching movie credits:', error));
-  }, [movieId]);
+    getMovieCredits(filmId)
+      .then(resp => {
+        setCast(resp.cast);
+      })
+      .catch(error => console.log(error));
+  }, [filmId]);
 
   return (
     <div>
-      <h1>Movie Cast</h1>
       <ul>
-        {cast.map(actor => (
-          <li key={actor.id}>{actor.name}</li>
-        ))}
+        {cast &&
+          cast.map(({ id, profile_path, original_name, character }) => (
+            <li key={id}>
+              <img
+                src={
+                  profile_path
+                    ? 'https://image.tmdb.org/t/p/w300' + profile_path
+                    : 'https://via.placeholder.com/200x300'
+                }
+                width={200}
+                height={300}
+                alt={original_name}
+              />
+              <div>
+                {original_name && <p>Actor: {original_name}</p>}
+                {character && <p>Character: {character}</p>}
+              </div>
+            </li>
+          ))}
       </ul>
     </div>
   );
 }
-
-export default Cast;

@@ -7,14 +7,14 @@ export const getTrendingMovies = async () => {
   const response = await axios.get(
     `${BASE_URL}/trending/all/day?api_key=${API_KEY}`
   );
-  return response.data.results;
+  return response.data;
 };
 
-export const searchMovies = async query => {
+export const getSearchMovies = async query => {
   const response = await axios.get(
     `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
   );
-  return response.data.results;
+  return response.data; // Возвращаем весь объект response.data
 };
 
 export const getMovieDetails = async movieId => {
@@ -35,5 +35,11 @@ export const getMovieReviews = async movieId => {
   const response = await axios.get(
     `${BASE_URL}/movie/${movieId}/reviews?api_key=${API_KEY}`
   );
-  return response.data.results;
+  // Проверяем, что response.data содержит свойство "results" и это является массивом
+  if (Array.isArray(response.data.results)) {
+    return response.data.results;
+  } else {
+    // Если "results" отсутствует или не является массивом, возвращаем пустой массив
+    return [];
+  }
 };
