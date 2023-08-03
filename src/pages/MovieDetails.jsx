@@ -1,5 +1,4 @@
-import { useRef } from 'react';
-import { useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 import { getMovieDetails } from 'services/ThemoviedbApi';
 
@@ -7,9 +6,9 @@ export default function MovieDetails() {
   const { filmId } = useParams();
   const [status, setStatus] = useState('IDLE');
   const [data, setData] = useState({});
+  const [error, setError] = useState(null);
 
   const location = useLocation();
-
   const refLocationLink = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
@@ -26,10 +25,17 @@ export default function MovieDetails() {
           }),
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error);
+        setError('Failed to fetch movie details.');
+      });
   }, [filmId]);
 
-  if (status === 'RESOLVED') {
+  if (status === 'IDLE') {
+    return <p>Loading...</p>;
+  } else if (error) {
+    return <p>{error}</p>;
+  } else if (status === 'RESOLVED') {
     const { backdrop_path, original_title, vote_average, overview, genres } =
       data;
 
